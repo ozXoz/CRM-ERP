@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors"); // Import CORS
 const authRoutes = require("./routes/auth");
+const peopleRoutes = require("./routes/people");
+const companyRoutes = require('./routes/companies'); // The path to your companies route file
 const app = express();
 app.use(cors()); // Enable CORS for all requests
 app.use(express.json());
@@ -15,7 +17,8 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch((error) => console.error(error));
 
-
 app.use("/auth", authRoutes);
+app.use("/people", peopleRoutes);
+app.use('/companies', companyRoutes);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

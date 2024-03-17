@@ -1,0 +1,182 @@
+/* CompanyPage.css */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  /* Sidebar styles, if any, can be added here */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main-header h1 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.add-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.company-table th,
+.company-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.company-table th {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.company-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.company-form {
+  background: #f8f9fa;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.company-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 600;
+}
+
+.company-form input[type="text"],
+.company-form input[type="email"],
+.company-form input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.company-form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.company-form button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.company-form .submit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.company-form .cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.company-form .submit-button:hover {
+  background-color: #218838;
+}
+
+.company-form .cancel-button:hover {
+  background-color: #c82333;
+}
+/* CompanyPage.css - Continued */
+
+.action-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 24px; /* Adjust size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px; /* Adjust width as needed */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0; /* Ensures dropdown aligns right to the button */
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  background: none;
+  border: none;
+  width: 100%;
+}
+
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+.relative-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* This class is added to the dropdown-content div when you want to show the dropdown */
+.show {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .company-form {
+    grid-template-columns: 1fr;
+  }
+}
