@@ -1,0 +1,24 @@
+/* SharedLayout.css */
+.layout {
+  display: flex;
+  min-height: 100vh; /* Full height */
+}
+
+.sidebar {
+  width: 240px; /* Sidebar width */
+  background-color: #343a40; /* Sidebar background color */
+  color: #fff; /* Text color for sidebar */
+  /* Add other styles you may already have for the sidebar */
+}
+
+.main-content {
+  flex-grow: 1; /* Take up the remaining width */
+  padding: 20px; /* Adjust the padding as needed */
+  background-color: #f4f7fa; /* Or any color that matches your design */
+}
+
+/* PeoplePage.css or equivalent */
+/* If you have additional specific styles for the People page, add them here */
+.people-page {
+  /* Any specific styles for People page content */
+}

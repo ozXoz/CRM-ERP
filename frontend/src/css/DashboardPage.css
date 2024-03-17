@@ -1,0 +1,47 @@
+/* DashboardPage.css */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh; /* Full height layout */
+  }
+  
+  .sidebar {
+    background-color: #343a40;
+    color: #ffffff;
+    width: 250px; /* Width of sidebar */
+    flex-shrink: 0; /* Prevent the sidebar from shrinking */
+  }
+  
+  .sidebar-header {
+    padding: 20px;
+    font-size: 1.5em;
+    background-color: #2c3034;
+    text-align: center;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nav-item {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-item:hover,
+  .nav-item.active {
+    background-color: #007bff;
+    text-decoration: none;
+  }
+  
+  .dashboard-content {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 20px; /* Padding around content */
+    background-color: #f4f7fa; /* Light grey background for content area */
+    overflow-y: auto; /* Add scroll to content if needed */
+  }
+  
+  /* Add additional styling below */
+  

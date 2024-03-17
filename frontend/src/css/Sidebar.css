@@ -1,0 +1,35 @@
+/* Sidebar.css */
+.sidebar {
+  background-color: #343a40;
+  min-height: 100vh;
+  color: #fff;
+  width: 250px; /* Adjust width as necessary */
+  padding-top: 20px;
+}
+
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+}

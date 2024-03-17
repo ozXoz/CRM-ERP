@@ -1,0 +1,182 @@
+/* HomePage.css */
+.home-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+  gap: 20px;
+  color: #333;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.home-content,
+.home-image {
+  flex: 1;
+}
+
+.home-content h1 {
+  color: #007bff;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.home-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.btn {
+  padding: 12px 25px;
+  margin-right: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.home-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.home-technologies {
+  margin-top: 40px;
+  text-align: left; /* Align text to the left for the technologies list */
+}
+
+.home-technologies p {
+  color: #007bff;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.home-technologies ul {
+  list-style: inside; /* Place the bullet points inside the list items */
+  padding-left: 0;
+}
+
+.home-technologies li {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 50px;
+  gap: 20px;
+  color: #333;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.branding-header,
+.feature-section,
+.home-technologies {
+  margin-bottom: 30px;
+}
+
+.feature {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.feature h3 {
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.home-technologies ul {
+  list-style: inside;
+  padding-left: 0;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Adjust the below as needed for better responsive design */
+@media (max-width: 768px) {
+  /* ... existing responsive styles ... */
+
+  .home-technologies {
+    text-align: center; /* Center the technologies list on smaller screens */
+  }
+
+  .home-technologies ul {
+    list-style: none; /* Remove bullet points on smaller screens */
+  }
+
+  .home-technologies li::before {
+    content: '✓'; /* Add custom bullets */
+    color: #007bff; /* Match the primary color */
+    font-weight: bold;
+    display: inline-block; 
+    width: 1.5em; /* Ensure space for the bullet */
+    margin-left: -1.5em; /* Align with the rest of the text */
+  }
+}
+
+
+@media (max-width: 768px) {
+  .home-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .home-content,
+  .home-image {
+    flex: none;
+    width: auto;
+  }
+
+  .btn {
+    margin-bottom: 20px;
+  }
+
+  .home-content h1 {
+    font-size: 1.8em;
+  }
+
+  .home-content p {
+    font-size: 1em;
+  }
+
+  .home-image img {
+    margin-top: 30px;
+  }
+}

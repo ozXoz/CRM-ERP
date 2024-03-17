@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
     if (!isValid) {
       return res.status(400).send('Invalid credentials');
     }
-    
+    console.log(`User logged in: ${user.email} ${user.role}`); // Or use user.username, depending on your preference
     // Generate a token if the credentials are valid
     const token = jwt.sign(
       { userId: user._id, role: user.role },

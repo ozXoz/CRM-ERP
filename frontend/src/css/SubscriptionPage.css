@@ -1,0 +1,102 @@
+/* SubscriptionPage.css */
+.subscription-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.billing-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.billing-button {
+  background-color: #f4f7fa;
+  border: 1px solid #d1d3d4;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.billing-button.active {
+  background-color: #e1e4e6;
+}
+
+.plans-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.plan {
+  border: 1px solid #d1d3d4;
+  border-radius: 10px;
+  width: 250px;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.plan-header {
+  padding: 20px;
+  border-bottom: 1px solid #d1d3d4;
+}
+
+.plan h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.plan-description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.features-list li {
+  text-align: left;
+  padding: 5px 20px;
+  font-size: 0.9em;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.get-started {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.get-started:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .plans-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .plan {
+    width: 80%;
+    max-width: 300px;
+  }
+}
