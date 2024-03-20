@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, createRef } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
-import "../css/CompanyPage.css"; // Ensure this path is correct
+import "../css/CompanyPage.css";
 import { getToken } from "../service/auth";
 
 const API_ENDPOINT = "http://localhost:3001/companies";
@@ -9,15 +9,25 @@ const API_ENDPOINT = "http://localhost:3001/companies";
 const api = axios.create({
   baseURL: API_ENDPOINT,
   headers: {
-    Authorization: `Bearer ${getToken()}`, // Ensure the token is sent with every request
+    Authorization: `Bearer ${getToken()}`,
   },
+});
+
+api.interceptors.request.use((config) => {
+  const token = getToken();
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
 });
 
 function CompanyPage() {
   const [companies, setCompanies] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState(null);
-  const [activeDropdown, setActiveDropdown] = useState(null); // State to manage active dropdown
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const dropdownRef = useRef([]);
+
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -31,19 +41,60 @@ function CompanyPage() {
     fetchCompanies();
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current.every((ref) => ref && !ref.contains(event.target))) {
+        setActiveDropdown(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const fetchCompanies = async () => {
     try {
       const response = await api.get("/");
       setCompanies(response.data);
-      // After fetching, initialize dropdownRefs for each company
+      dropdownRef.current = response.data.map((_, i) => dropdownRef.current[i] ?? createRef());
     } catch (error) {
       console.error("Error fetching companies:", error);
+    }
+  };
+
+  const handleFormChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const action = selectedCompany
+        ? api.patch(`/${selectedCompany._id}`, formData)
+        : api.post("/", formData);
+      await action;
+      setIsEditing(false);
+      setSelectedCompany(null);
+      setActiveDropdown(null);
+      fetchCompanies();
+      setFormData({
+        name: "",
+        contact: "",
+        country: "",
+        phone: "",
+        email: "",
+        website: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
   };
 
   const handleAddClick = () => {
     setIsEditing(true);
     setSelectedCompany(null);
+    setActiveDropdown(null);
     setFormData({
       name: "",
       contact: "",
@@ -54,33 +105,11 @@ function CompanyPage() {
     });
   };
 
-  const handleFormChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const action = selectedCompany
-        ? api.patch(`/${selectedCompany._id}`, formData)
-        : api.post("/", formData);
-      await action;
-      setIsEditing(false);
-      setSelectedCompany(null);
-      fetchCompanies();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
   const handleEditClick = (company) => {
     setIsEditing(true);
     setSelectedCompany(company);
     setFormData(company);
+    setActiveDropdown(null);
   };
 
   const handleDeleteClick = async (id) => {
@@ -90,23 +119,17 @@ function CompanyPage() {
     } catch (error) {
       console.error("Error deleting company:", error);
     }
+    setActiveDropdown(null);
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
     setSelectedCompany(null);
-    setFormData({
-      name: "",
-      contact: "",
-      country: "",
-      phone: "",
-      email: "",
-      website: "",
-    });
+    setActiveDropdown(null);
   };
 
   const toggleDropdown = (index) => {
-    setActiveDropdown(activeDropdown === index ? null : index); // Toggle dropdown visibility
+    setActiveDropdown(activeDropdown === index ? null : index);
   };
 
   return (
@@ -119,62 +142,7 @@ function CompanyPage() {
             Add New Company
           </button>
         </div>
-        {isEditing && (
-          <form onSubmit={handleFormSubmit} className="company-form">
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleFormChange}
-              placeholder="Company Name"
-            />
-            <label>Contact:</label>
-            <input
-              type="text"
-              name="contact"
-              value={formData.contact}
-              onChange={handleFormChange}
-              placeholder="Primary Contact"
-            />
-            <label>Country:</label>
-            <input
-              type="text"
-              name="country"
-              value={formData.country}
-              onChange={handleFormChange}
-              placeholder="Country"
-            />
-            <label>Phone:</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleFormChange}
-              placeholder="Phone Number"
-            />
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleFormChange}
-              placeholder="Email Address"
-            />
-            <label>Website:</label>
-            <input
-              type="text"
-              name="website"
-              value={formData.website}
-              onChange={handleFormChange}
-              placeholder="Website URL"
-            />
-            <div className="form-actions">
-              <button type="submit" className="submit-button">Save Company</button>
-              <button type="button" onClick={handleCancelClick} className="cancel-button">Cancel</button>
-            </div>
-          </form>
-        )}
+
         <table className="company-table">
           <thead>
             <tr>
@@ -197,24 +165,50 @@ function CompanyPage() {
                 <td>{company.email}</td>
                 <td>{company.website}</td>
                 <td>
-                  <div className="relative-container">
-                    <button className="action-button" onClick={() => toggleDropdown(index)}>...</button>
-                    {activeDropdown === index && (
-                      <div className="dropdown-content show">
-                        <button onClick={() => handleEditClick(company)}>Edit</button>
-                        <button onClick={() => handleDeleteClick(company._id)}>Delete</button>
-                      </div>
-                    )}
+                  <div className="action-buttons" ref={(el) => (dropdownRef.current[index] = el)}>
+                    <div className="relative-container">
+                      <button className="action-button" onClick={() => toggleDropdown(index)}>
+                        ...
+                      </button>
+                      {activeDropdown === index && (
+                        <div className="dropdown-content show">
+                          <button onClick={() => handleEditClick(company)}>Edit</button>
+                          <button onClick={() => handleDeleteClick(company._id)}>Delete</button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {(isEditing || selectedCompany) && (
+          <div className="company-form">
+            <form onSubmit={handleSubmit}>
+              <label>Name:</label>
+              <input type="text" name="name" value={formData.name} onChange={handleFormChange} />
+              <label>Contact:</label>
+              <input type="text" name="contact" value={formData.contact} onChange={handleFormChange} />
+              <label>Country:</label>
+              <input type="text" name="country" value={formData.country} onChange={handleFormChange} />
+              <label>Phone:</label>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleFormChange} />
+              <label>Email:</label>
+              <input type="email" name="email" value={formData.email} onChange={handleFormChange} />
+              <label>Website:</label>
+              <input type="text" name="website" value={formData.website} onChange={handleFormChange} />
+              <div className="form-actions">
+                <button type="submit" className="submit-button">Save Company</button>
+                <button type="button" onClick={handleCancelClick} className="cancel-button">Cancel</button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
-  
 }
 
 export default CompanyPage;

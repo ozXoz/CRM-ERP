@@ -16,6 +16,16 @@ const userSchema = new mongoose.Schema({
   subscription: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Subscription'
+  },
+  createdByAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null
+  },
+  subscriptionType: {
+    type: String,
+    enum: ['Starter', 'Premium', 'Enterprise', null],
+    default: null
   }
 });
 

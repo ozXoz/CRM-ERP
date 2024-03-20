@@ -30,34 +30,34 @@ router.post('/signup', async (req, res) => {
 
 
 // Login route
+// Login route
 router.post('/login', async (req, res) => {
   try {
-    // Find the user by email
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res.status(400).send('User not found');
     }
-    
-    // Compare submitted password with stored hashed password
+
     const isValid = await bcrypt.compare(req.body.password, user.password);
     if (!isValid) {
       return res.status(400).send('Invalid credentials');
     }
-    console.log(`User logged in: ${user.email} ${user.role}`); // Or use user.username, depending on your preference
-    // Generate a token if the credentials are valid
+
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
 
-    // Send the token and user role to the client
-    res.json({ token, role: user.role });
+    console.log(`User logged in: email - ${user.email}, ID - ${user._id}, role - ${user.role}`);
+
+    // Include userId in the response
+    res.json({ token, userId: user._id.toString(), role: user.role });
   } catch (error) {
-    // Handle errors
     res.status(500).send(error.message);
   }
 });
+
 
 // In your authRoutes.js file or wherever you define your authentication-related routes
 

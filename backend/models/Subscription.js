@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
 const subscriptionSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    required: true,
-    enum: ['Trial', 'Premium', 'Standard', 'Enterprise'],
-    default: 'Trial'
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
-  features: [String] // Simple representation of features as an array of strings
-  // For a more complex feature set, consider defining a separate schema
-});
+  stripeCustomerId: String,
+  stripeSubscriptionId: String,
+  plan: String, // This could be 'monthly' or 'yearly', depending on your plans
+  status: String, // For example, 'active', 'canceled', 'past_due', etc.
+}, { timestamps: true });
 
-module.exports = mongoose.model('Subscription', subscriptionSchema);
+const Subscription = mongoose.model('Subscription', subscriptionSchema);
+module.exports = Subscription;

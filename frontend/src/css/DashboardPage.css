@@ -1,47 +1,109 @@
-/* DashboardPage.css */
+/* Existing styles */
 .dashboard-layout {
-    display: flex;
-    min-height: 100vh; /* Full height layout */
-  }
-  
-  .sidebar {
-    background-color: #343a40;
-    color: #ffffff;
-    width: 250px; /* Width of sidebar */
-    flex-shrink: 0; /* Prevent the sidebar from shrinking */
-  }
-  
-  .sidebar-header {
-    padding: 20px;
-    font-size: 1.5em;
-    background-color: #2c3034;
-    text-align: center;
-  }
-  
-  .nav {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .nav-item {
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #ffffff;
-    transition: background-color 0.3s;
-  }
-  
-  .nav-item:hover,
-  .nav-item.active {
-    background-color: #007bff;
-    text-decoration: none;
-  }
-  
-  .dashboard-content {
-    flex-grow: 1; /* Take up remaining space */
-    padding: 20px; /* Padding around content */
-    background-color: #f4f7fa; /* Light grey background for content area */
-    overflow-y: auto; /* Add scroll to content if needed */
-  }
-  
-  /* Add additional styling below */
-  
+  display: flex;
+  min-height: 100vh; /* Full height layout */
+}
+
+.sidebar {
+  background-color: #343a40;
+  color: #ffffff;
+  width: 250px; /* Width of sidebar */
+  flex-shrink: 0; /* Prevent the sidebar from shrinking */
+}
+
+.sidebar-header {
+  padding: 20px;
+  font-size: 1.5em;
+  background-color: #2c3034;
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: background-color 0.3s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background-color: #007bff;
+  text-decoration: none;
+}
+
+.dashboard-content {
+  flex-grow: 1; /* Take up remaining space */
+  padding: 20px; /* Padding around content */
+  background-color: #f4f7fa; /* Light grey background for content area */
+  overflow-y: auto; /* Add scroll to content if needed */
+}
+
+/* New styles for profile dropdown */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-section {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%; /* Circular hit area for icon or avatar */
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px; /* Optional: for rounded corners */
+}
+
+.profile-dropdown div {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.profile-dropdown div:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-icon {
+  width: 10px; /* Size of the profile icon */
+  height: 10px; /* Size of the profile icon */
+  border-radius: 50%; /* Make it round */
+  background-color: #2c3034; /* Dark background for contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-icon::before {
+  content: "";
+  width: 70%; /* Relative to parent */
+  height: 70%; /* Relative to parent */
+  border-radius: 50%; /* Make it round */
+  background-color: #ffffff; /* White color for the head */
+}
+
+.profile-icon::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  width: 60%;
+  height: 20px;
+  background-color: #000000;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}

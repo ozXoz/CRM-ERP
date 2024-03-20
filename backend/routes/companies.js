@@ -1,10 +1,10 @@
 const express = require('express');
 const Company = require('../models/Company'); // Your Company model path
-const { authenticateToken, isAdmin } = require('../middleware/authMiddleware');
+const { authenticateToken, isAdminOrOwnerOrUser } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Create a new company
-router.post('/', authenticateToken, isAdmin, async (req, res) => {
+router.post('/', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const company = new Company(req.body);
     await company.save();
@@ -15,7 +15,7 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Get all companies
-router.get('/', authenticateToken, isAdmin, async (req, res) => {
+router.get('/', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const companies = await Company.find({});
     res.status(200).send(companies);
@@ -25,7 +25,7 @@ router.get('/', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Update a company
-router.patch('/:id', authenticateToken, isAdmin, async (req, res) => {
+router.patch('/:id', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const company = await Company.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!company) {
@@ -38,7 +38,7 @@ router.patch('/:id', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Delete a company
-router.delete('/:id', authenticateToken, isAdmin, async (req, res) => {
+router.delete('/:id', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const company = await Company.findByIdAndDelete(req.params.id);
     if (!company) {

@@ -2,11 +2,11 @@
 
 const express = require('express');
 const People = require('../models/People'); // Assuming your People model is in the models directory
-const { authenticateToken, isAdmin } = require('../middleware/authMiddleware');
+const { authenticateToken, isAdminOrOwnerOrUser } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Create a new person
-router.post('/', authenticateToken, isAdmin, async (req, res) => {
+router.post('/', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const person = new People(req.body);
     await person.save();
@@ -17,7 +17,7 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Get all people
-router.get('/', authenticateToken, isAdmin, async (req, res) => {
+router.get('/', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const people = await People.find({});
     res.status(200).send(people);
@@ -27,7 +27,7 @@ router.get('/', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Update a person
-router.patch('/:id', authenticateToken, isAdmin, async (req, res) => {
+router.patch('/:id', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const person = await People.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!person) {
@@ -40,7 +40,7 @@ router.patch('/:id', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Delete a person
-router.delete('/:id', authenticateToken, isAdmin, async (req, res) => {
+router.delete('/:id', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   try {
     const person = await People.findByIdAndDelete(req.params.id);
     if (!person) {
