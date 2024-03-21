@@ -21,6 +21,11 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  createdByAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference the User model to know which admin created the company
+    required: true
+  },
   website: {
     type: String
   }

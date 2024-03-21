@@ -1,44 +1,76 @@
+/* SignupPage.css */
+
 .signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url("https://img.freepik.com/premium-vector/network-connection-background-abstract-style_23-2148875738.jpg"); /* Your desired background image */
+  background-size: cover;
+  background-position: center;
+  perspective: 1000px; /* Establishes a 3D space */
 }
 
 .signup-form {
-  width: 350px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 350px; /* Adjust width as needed */
+  padding: 30px; /* Adjust padding for visual appeal */
+  border-radius: 20px; /* Rounded corners for modern look */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.7
+  ); /* Semi-transparent white for glass effect */
+  backdrop-filter: blur(10px); /* Blur for glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for subtle edge */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  color: #333; /* Font color */
+  transform: rotateY(20deg); /* 3D effect */
+  transition: transform 0.3s ease-out; /* Smooth transition for hover */
+}
+
+.signup-form:hover {
+  transform: rotateY(0deg);
 }
 
 .form-control {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .form-control label {
-  display: block;
-  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #333;
 }
 
 .form-control input {
   width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #333;
+  font-size: 0.95rem;
 }
 
 .signup-button {
   width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: none;
-  background-color: #28a745;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: #007bff; /* Or use the color you desire */
   color: white;
-  cursor: pointer;
+  font-size: 0.95rem;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.2s ease;
 }
 
 .signup-button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .signup-form {
+    width: 80%;
+    transform: none;
+  }
 }

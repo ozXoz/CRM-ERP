@@ -8,7 +8,12 @@ const peopleSchema = new mongoose.Schema({
   company: String,
   country: String,
   phone: String,
-  email: { type: String, required: true }
+  email: { type: String, required: true },
+  createdByAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // assuming the User model has the admins
+    required: true
+  }
 });
 
 module.exports = mongoose.model('People', peopleSchema);
