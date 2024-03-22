@@ -8,6 +8,7 @@ const companyRoutes = require("./routes/companies"); // The path to your compani
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const webhookRoutes = require("./routes/webhookRoutes");
 const addUserRoutes = require("./routes/addUserRoutes"); // Adjust the path according to your project structure
+const clientRoutes = require('./routes/clients'); // Import the clients routes
 const app = express();
 app.use(cors()); // Enable CORS for all requests
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use("/people", peopleRoutes);
 app.use("/companies", companyRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/webhooks/stripe", webhookRoutes);
-app.use('/admin', addUserRoutes);
+app.use('/clients', clientRoutes); // Use the clients routes with the /clients prefix
+app.use("/admin", addUserRoutes);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

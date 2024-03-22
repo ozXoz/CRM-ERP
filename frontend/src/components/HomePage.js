@@ -136,6 +136,18 @@ function HomePage() {
           </div>
         ))}
       </div>
+      {/* Contact Us section */}
+      <div className="contact-us-section">
+        <h2>Contact Us</h2>
+        <p>Send us a message and we'll get back to you shortly.</p>
+        <form className="contact-form">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit" className="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+
       <Footer />
 
       {/* Footer would go here */}

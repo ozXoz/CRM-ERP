@@ -70,3 +70,45 @@
     transform: none; /* Remove the skew effect for smaller screens */
   }
 }
+
+/* LoginPage.css */
+
+/* Existing styles... */
+
+/* Adjustments for tablets and below */
+@media (max-width: 992px) {
+  .login-form {
+    width: 60%; /* Increase width for medium devices */
+    padding: 20px; /* Adjust padding */
+    /* Keep the transform effect for slightly larger screens if desired */
+  }
+
+  .form-control input, .login-button {
+    padding: 12px; /* Increase padding for easier interaction */
+    font-size: 1rem; /* Increase font size for better visibility */
+  }
+}
+
+/* Adjustments for mobile devices */
+@media (max-width: 576px) {
+  .login-form {
+    width: 90%; /* Use a higher percentage of the screen width */
+    padding: 15px; /* Adjust padding for a tighter layout */
+    border-radius: 10px; /* Adjust for smaller screens */
+    transform: none; /* Remove transform for consistency and to avoid layout issues */
+  }
+
+  .form-control label {
+    font-size: 0.9rem; /* Adjust label size for smaller screens */
+  }
+
+  .form-control input, .login-button {
+    padding: 10px; /* Adjust form controls for smaller screens */
+    font-size: 0.9rem; /* Adjust font size for readability */
+  }
+
+  .login-button {
+    padding: 12px 0; /* Slightly larger button for easier tapping */
+  }
+}
+
