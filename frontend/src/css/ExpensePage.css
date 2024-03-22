@@ -1,0 +1,99 @@
+/* ExpensePage.css */
+.layout {
+    display: flex;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .sidebar {
+    /* Add styles for your sidebar here if needed */
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .main-header h1 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .form-control {
+    margin-bottom: 20px;
+  }
+  
+  .form-control input,
+  .form-control select,
+  .form-control textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .button,
+  .cancel-button {
+    width: auto;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancel-button {
+    background-color: #f44336;
+  }
+  
+  .button:hover,
+  .cancel-button:hover {
+    opacity: 0.8;
+  }
+  
+  .expenses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .expenses-table th,
+  .expenses-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .expenses-table th {
+    background-color: #f2f2f2;
+    color: black;
+  }
+  
+  .expenses-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 600px) {
+    .sidebar,
+    .main-content {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
+  

@@ -8,7 +8,11 @@ const companyRoutes = require("./routes/companies"); // The path to your compani
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const webhookRoutes = require("./routes/webhookRoutes");
 const addUserRoutes = require("./routes/addUserRoutes"); // Adjust the path according to your project structure
-const clientRoutes = require('./routes/clients'); // Import the clients routes
+const clientRoutes = require("./routes/clients"); // Import the clients routes
+const expenseCategoriesRoutes = require("./routes/expenseCategories");
+const expensesRoutes = require("./routes/expenses");
+const productCategoriesRoutes = require("./routes/productCategories");
+const productsRoutes = require("./routes/products");
 const app = express();
 app.use(cors()); // Enable CORS for all requests
 app.use(express.json());
@@ -26,7 +30,11 @@ app.use("/people", peopleRoutes);
 app.use("/companies", companyRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/webhooks/stripe", webhookRoutes);
-app.use('/clients', clientRoutes); // Use the clients routes with the /clients prefix
+app.use("/clients", clientRoutes); // Use the clients routes with the /clients prefix
+app.use("/api/expense-categories", expenseCategoriesRoutes);
+app.use("/api/expenses", expensesRoutes);
+app.use("/api/product-categories", productCategoriesRoutes);
+app.use("/api/products", productsRoutes);
 app.use("/admin", addUserRoutes);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
