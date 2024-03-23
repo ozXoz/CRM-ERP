@@ -1,6 +1,8 @@
 const express = require('express');
 const { authenticateToken, isAdminOrOwnerOrUser } = require('../middleware/authMiddleware');
 const Product = require('../models/Product');
+const ProductCategory = require('../models/ProductCategory'); // Adjust the path as necessary
+
 const router = express.Router();
 
 router.post('/', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {

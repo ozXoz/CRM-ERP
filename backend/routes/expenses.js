@@ -33,6 +33,44 @@ router.get('/', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
   }
 });
 
+
+// Update an existing Expense
+router.patch('/:id', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
+  try {
+      const updatedExpense = await Expense.findOneAndUpdate(
+          { _id: req.params.id, createdByAdmin: req.user.userId },
+          req.body,
+          { new: true }
+      ).populate('category');
+
+      if (!updatedExpense) {
+          return res.status(404).send("Expense not found or you don't have permission to update this expense.");
+      }
+
+      res.json(updatedExpense);
+  } catch (error) {
+      res.status(400).send(error.message);
+  }
+});
+
+// Delete an existing Expense
+router.delete('/:id', authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
+  try {
+      const deletedExpense = await Expense.findOneAndDelete({
+          _id: req.params.id,
+          createdByAdmin: req.user.userId
+      });
+
+      if (!deletedExpense) {
+          return res.status(404).send("Expense not found or you don't have permission to delete this expense.");
+      }
+
+      res.json({ message: 'Expense successfully deleted', deletedExpense });
+  } catch (error) {
+      res.status(500).send(error.message);
+  }
+});
+
 // Additional routes for updating and deleting expenses can follow a similar pattern
 
 module.exports = router;

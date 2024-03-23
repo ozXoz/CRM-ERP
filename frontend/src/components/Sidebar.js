@@ -20,6 +20,8 @@ function Sidebar() {
         <NavLink to="/expenses" className="nav-item" activeClassName="active">Expenses</NavLink>
         <NavLink to="/invoices" className="nav-item" activeClassName="active">Invoices</NavLink>
         <NavLink to="/subscription" className="nav-item" activeClassName="active">Subscription</NavLink>
+        <NavLink to="/tax-rate" className="nav-item" activeClassName="active">Tax</NavLink>
+
         {userRole === "Admin" && (
           <NavLink to="/new-user" className="nav-item" activeClassName="active">New User</NavLink>
         )}

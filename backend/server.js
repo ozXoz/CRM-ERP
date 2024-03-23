@@ -13,6 +13,9 @@ const expenseCategoriesRoutes = require("./routes/expenseCategories");
 const expensesRoutes = require("./routes/expenses");
 const productCategoriesRoutes = require("./routes/productCategories");
 const productsRoutes = require("./routes/products");
+const taxRatesRoutes = require("./routes/taxRates"); // Import the tax rates routes
+const invoiceRoutes = require('./routes/invoice'); // Make sure the path matches where you've saved your invoice routes
+
 const app = express();
 app.use(cors()); // Enable CORS for all requests
 app.use(express.json());
@@ -35,6 +38,9 @@ app.use("/api/expense-categories", expenseCategoriesRoutes);
 app.use("/api/expenses", expensesRoutes);
 app.use("/api/product-categories", productCategoriesRoutes);
 app.use("/api/products", productsRoutes);
+app.use("/api/tax-rates", taxRatesRoutes); // Use the tax rates routes with the /api/tax-rates prefix
+app.use('/api/invoices', invoiceRoutes); // Use your invoice routes with a specific prefix
+
 app.use("/admin", addUserRoutes);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

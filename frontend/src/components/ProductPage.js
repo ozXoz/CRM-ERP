@@ -32,9 +32,12 @@ function ProductPage() {
   const fetchProductCategories = async () => {
     const token = getToken();
     try {
-      const categoriesResponse = await axios.get(`${ENDPOINT}/api/product-categories`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const categoriesResponse = await axios.get(
+        `${ENDPOINT}/api/product-categories`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setCategories(categoriesResponse.data);
     } catch (error) {
       console.error("Error fetching product categories:", error);
@@ -125,8 +128,9 @@ function ProductPage() {
         <ul>
           {products.map((product) => (
             <li key={product._id}>
-              {product.name} - {product.currency} {product.price} - {product.description}
-              {/* Display category name if needed */}
+              {product.name} - {product.currency} {product.price} -{" "}
+              {product.description}- Category:{" "}
+              {product.category ? product.category.name : "No Category"}
             </li>
           ))}
         </ul>

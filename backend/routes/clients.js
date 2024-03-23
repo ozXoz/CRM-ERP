@@ -110,6 +110,43 @@ router.get("/", authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
 });
 
 
+// Fetch detailed client information by ID
+router.get("/details/:clientId", authenticateToken, isAdminOrOwnerOrUser, async (req, res) => {
+  const { clientId } = req.params;
+
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).send("Client not found");
+    }
+
+    let detailedInfo;
+    if (client.type === "People") {
+      detailedInfo = await People.findById(client.reference).select("-__v");
+    } else if (client.type === "Company") {
+      detailedInfo = await Company.findById(client.reference).select("-__v");
+    } else {
+      return res.status(400).send("Invalid client type");
+    }
+
+    if (!detailedInfo) {
+      return res.status(404).send("Detailed information for the client not found");
+    }
+
+    // Optionally merge client info with detailed info if needed
+    const response = {
+      ...client.toObject(),
+      details: detailedInfo.toObject()
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error fetching client details:", error);
+    res.status(500).send("Error fetching client details");
+  }
+});
+
+
 
 
 module.exports = router;

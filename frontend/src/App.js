@@ -21,6 +21,7 @@ import InvoicePage from "./components/InvoicePage";
 import SubscriptionPage from "./components/SubscriptionPage";
 import PaymentPage from "./components/PaymentPage"; // Import PaymentPage component
 import NewUser from "./components/NewUser"; // Import the NewUser component
+import TaxPage from "./components/TaxPage";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -51,6 +52,8 @@ function App() {
           <Route path="/invoices" element={<InvoicePage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
           <Route path="/new-user" element={<NewUser />} />
+          <Route path="/tax-rate" element={<TaxPage />} />
+
 
           <Route
             path="/payment"
