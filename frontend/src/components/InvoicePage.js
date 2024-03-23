@@ -27,7 +27,7 @@ function InvoicePage() {
     note: "",
     description: "",
     subtotal: 0,
-    final_total: 0,
+    total: 0,
   });
 
   // Fetch all necessary data on component mount
@@ -89,22 +89,22 @@ function InvoicePage() {
 
   useEffect(() => {
     // Now calculateTotals is called with the current newInvoice state
-    const { subtotal, final_total } = calculateTotals(newInvoice);
+    const { subtotal, total } = calculateTotals(newInvoice);
     setNewInvoice((prev) => ({
       ...prev,
       subtotal,
-      final_total,
+      total,
     }));
   }, [newInvoice.price, newInvoice.quantity, newInvoice.taxRateId, taxRates]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(`${name}: ${value}`); 
+    console.log(`${name}: ${value}`);
     setNewInvoice((prevState) => {
       // Update the state based on input changes
       const updatedInvoice = { ...prevState, [name]: value };
       // If one of the critical values changes, recalculate totals immediately
-      if (['price', 'quantity', 'taxRateId'].includes(name)) {
+      if (["price", "quantity", "taxRateId"].includes(name)) {
         return { ...updatedInvoice, ...calculateTotals(updatedInvoice) };
       }
       return updatedInvoice;
@@ -180,13 +180,14 @@ function InvoicePage() {
   };
 
   const calculateTotals = (currentInvoice) => {
-    const taxRateObject = taxRates.find(rate => rate._id === currentInvoice.taxRateId);
+    const taxRateObject = taxRates.find(
+      (rate) => rate._id === currentInvoice.taxRateId
+    );
     const selectedTaxRate = taxRateObject ? taxRateObject.totalTaxRate : 0;
     const subtotal = currentInvoice.price * currentInvoice.quantity;
-    const final_total = subtotal + (subtotal * selectedTaxRate) / 100;
-    return { subtotal, final_total };
+    const total = subtotal + (subtotal * selectedTaxRate) / 100;
+    return { subtotal, total };
   };
-  
 
   return (
     <div className="layout">
@@ -256,24 +257,25 @@ function InvoicePage() {
                 required
               />
 
-<select
-  name="taxRateId"
-  value={newInvoice.taxRateId}
-  onChange={handleInputChange}
-  required
->
-  <option value="">Select Tax Rate</option>
-  {taxRates.map((taxRate) => (
-    <option key={taxRate._id} value={taxRate._id}>
-      {taxRate.country} - {taxRate.province} - {taxRate.totalTaxRate}%
-    </option>
-  ))}
-</select>
+              <select
+                name="taxRateId"
+                value={newInvoice.taxRateId}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select Tax Rate</option>
+                {taxRates.map((taxRate) => (
+                  <option key={taxRate._id} value={taxRate._id}>
+                    {taxRate.country} - {taxRate.province} -{" "}
+                    {taxRate.totalTaxRate}%
+                  </option>
+                ))}
+              </select>
 
               <input
                 type="number"
                 name="total"
-                value={newInvoice.final_total}
+                value={newInvoice.total}
                 onChange={handleInputChange}
                 placeholder="Total after tax"
                 required
